@@ -2,11 +2,11 @@ version: '3'
 services:
   uploader:
     image: zyfyy/php-fpm
-    container_name: app
+    container_name: php-fpm
     restart: unless-stopped
     tty: true
     environment:
-      SERVICE_NAME: app
+      SERVICE_NAME: php-fpm
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:8080"
+      - "8888:8080"
     volumes:
       - ./:/var/www/uploads
     networks:
