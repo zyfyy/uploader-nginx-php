@@ -1,0 +1,30 @@
+version: '3'
+services:
+  uploader:
+    image: zyfyy/php-fpm
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www/uploads
+    networks:
+      - app-network
+  webserver:
+    image: zyfyy/nginx-uploader
+    container_name: nginx-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:8080"
+    volumes:
+      - ./:/var/www/uploads
+    networks:
+      - app-network
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
